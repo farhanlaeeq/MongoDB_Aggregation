@@ -40,3 +40,27 @@ exports.GetMoviecomment = async (req, res, next) => {
     });
   }
 };
+
+exports.GetSortedCommentsByDate = async (req, res, next) => {
+  try {
+    const Limit = await req.query.limit;
+    const data = await comment.aggregate([
+      { $sort: { date: 1 } },
+      { $limit: Number(Limit) },
+    ]);
+    res.json({
+      message: "comment logged in successfully",
+      IsSuccess: true,
+      Status_Code: 200,
+      Limit: Limit,
+      Data: data,
+    });
+  } catch (error) {
+    res.json({
+      message: "Server Error!",
+      IsSuccess: false,
+      Status_Code: 500,
+      Data: error,
+    });
+  }
+};

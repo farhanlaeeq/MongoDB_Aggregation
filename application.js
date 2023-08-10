@@ -9,10 +9,10 @@ aplication.use(express.urlencoded({ extended: true, limit: "10kb" }));
 aplication.use("/", commentsRoutes);
 
 aplication.get("*", (req, res) => {
-  res.json({
-    success: true,
-    status: 200,
-    message: "Successfully connected to the server",
+  res.status(404).json({
+    success: false,
+    status: 404,
+    message: "Route Not Found",
     data: null,
   });
 });
